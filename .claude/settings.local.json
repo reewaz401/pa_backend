@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(poetry install:*)",
+      "Bash(where.exe:*)",
+      "Bash(where:*)",
+      "Bash(C:/Users/rzmsk/AppData/Local/Programs/Python/Python312/Scripts/pip.exe install poetry)",
+      "Bash(C:/Users/rzmsk/AppData/Local/Programs/Python/Python312/Scripts/poetry.exe install)",
+      "Bash(docker compose:*)",
+      "Bash(C:/Users/rzmsk/AppData/Local/Programs/Python/Python312/Scripts/poetry.exe run alembic upgrade head)",
+      "Bash(docker exec:*)",
+      "Bash(ss:*)",
+      "Bash(docker port:*)",
+      "Bash(netstat.exe:*)",
+      "Bash(PGPASSWORD=first1974 psql:*)",
+      "Bash(\"/c/Program Files/PostgreSQL/16/bin/psql.exe\" -U postgres -h localhost -p 5432 -c \"CREATE DATABASE pa_db;\")",
+      "Bash(\"/c/Program Files/PostgreSQL/17/bin/psql.exe\" -U postgres -h localhost -p 5432 -c \"CREATE DATABASE pa_db;\")",
+      "Bash(\"/c/Program Files/PostgreSQL/15/bin/psql.exe\" -U postgres -h localhost -p 5432 -c \"CREATE DATABASE pa_db;\")",
+      "Bash(PGPASSWORD=first1974 \"/c/Program Files/PostgreSQL/18/bin/psql.exe\":*)",
+      "WebSearch",
+      "Bash(gh release list:*)",
+      "Bash(curl:*)",
+      "Bash(python:*)",
+      "Bash(\"D:/Personal Assistant/pa_backend/install_pgvector.ps1\":*)",
+      "Bash(poetry add:*)",
+      "Bash(poetry run alembic upgrade:*)",
+      "Bash(timeout 8 poetry run uvicorn:*)",
+      "Bash(netstat:*)",
+      "Bash(taskkill:*)",
+      "Bash(poetry run python:*)",
+      "Bash(alembic downgrade:*)",
+      "Bash(poetry run alembic downgrade:*)",
+      "Bash(ls:*)",
+      "Bash(python3:*)",
+      "Bash(true:*)"
+    ]
+  }
+}

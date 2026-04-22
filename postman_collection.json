@@ -1,0 +1,830 @@
+{
+	"info": {
+		"name": "PA Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "exercise_id",
+			"value": ""
+		},
+		{
+			"key": "workout_id",
+			"value": ""
+		},
+		{
+			"key": "we_id",
+			"value": ""
+		},
+		{
+			"key": "set_id",
+			"value": ""
+		},
+		{
+			"key": "log_id",
+			"value": ""
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json();",
+									"if (res.access_token) {",
+									"    pm.collectionVariables.set('token', res.access_token);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"secret123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					}
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json();",
+									"if (res.access_token) {",
+									"    pm.collectionVariables.set('token', res.access_token);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "user@example.com"
+								},
+								{
+									"key": "password",
+									"value": "secret123"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Me",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/me/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"me",
+								"profile"
+							]
+						}
+					}
+				},
+				{
+					"name": "Upsert Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"timezone\": \"Europe/Moscow\",\n    \"weight_kg\": 80,\n    \"height_cm\": 180,\n    \"gender\": \"male\",\n    \"default_unit\": \"kg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/me/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"me",
+								"profile"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Exercises",
+			"item": [
+				{
+					"name": "Create Exercise",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json();",
+									"if (res.id) {",
+									"    pm.collectionVariables.set('exercise_id', res.id);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Bench Press\",\n    \"equipment\": \"Barbell\",\n    \"muscle_group\": \"Chest\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/exercises",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"exercises"
+							]
+						}
+					}
+				},
+				{
+					"name": "List Exercises",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/exercises",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"exercises"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Exercise",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/exercises/{{exercise_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"exercises",
+								"{{exercise_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Exercise",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Incline Bench Press\",\n    \"muscle_group\": \"Upper Chest\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/exercises/{{exercise_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"exercises",
+								"{{exercise_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Exercise",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/exercises/{{exercise_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"exercises",
+								"{{exercise_id}}"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Workouts",
+			"item": [
+				{
+					"name": "Create Workout (nested)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json();",
+									"if (res.id) {",
+									"    pm.collectionVariables.set('workout_id', res.id);",
+									"}",
+									"if (res.workout_exercises && res.workout_exercises.length > 0) {",
+									"    pm.collectionVariables.set('we_id', res.workout_exercises[0].id);",
+									"    if (res.workout_exercises[0].sets && res.workout_exercises[0].sets.length > 0) {",
+									"        pm.collectionVariables.set('set_id', res.workout_exercises[0].sets[0].id);",
+									"    }",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"workout_date\": \"2026-02-22\",\n    \"day\": 1,\n    \"title\": \"Push Day\",\n    \"notes\": \"Feeling strong\",\n    \"started_at\": null,\n    \"ended_at\": null,\n    \"duration_minutes\": null,\n    \"intensity\": 8,\n    \"calories_est_total\": null,\n    \"exercises\": [\n        {\n            \"exercise_id\": \"{{exercise_id}}\",\n            \"order_index\": 0,\n            \"notes\": \"Focus on form\",\n            \"sets\": [\n                { \"set_index\": 0, \"reps\": 10, \"weight\": 60, \"unit\": \"kg\", \"is_warmup\": true },\n                { \"set_index\": 1, \"reps\": 8, \"weight\": 70, \"unit\": \"kg\" },\n                { \"set_index\": 2, \"reps\": 6, \"weight\": 80, \"unit\": \"kg\", \"rpe\": 9 }\n            ]\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/workouts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workouts"
+							]
+						}
+					}
+				},
+				{
+					"name": "List Workouts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/workouts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workouts"
+							],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "2026-01-01",
+									"disabled": true
+								},
+								{
+									"key": "date_to",
+									"value": "2026-12-31",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Workout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/workouts/{{workout_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workouts",
+								"{{workout_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Workout",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Push Day (Updated)\",\n    \"duration_minutes\": 65,\n    \"intensity\": 9,\n    \"calories_est_total\": 350\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/workouts/{{workout_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workouts",
+								"{{workout_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Workout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/workouts/{{workout_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workouts",
+								"{{workout_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Add Exercise to Workout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json();",
+									"if (res.id) {",
+									"    pm.collectionVariables.set('we_id', res.id);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"exercise_id\": \"{{exercise_id}}\",\n    \"order_index\": 1,\n    \"notes\": null,\n    \"sets\": [\n        { \"set_index\": 0, \"reps\": 12, \"weight\": 40, \"unit\": \"kg\" }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/workouts/{{workout_id}}/exercises",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workouts",
+								"{{workout_id}}",
+								"exercises"
+							]
+						}
+					}
+				},
+				{
+					"name": "Remove Exercise from Workout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/workouts/{{workout_id}}/exercises/{{we_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workouts",
+								"{{workout_id}}",
+								"exercises",
+								"{{we_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Add Set",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json();",
+									"if (res.id) {",
+									"    pm.collectionVariables.set('set_id', res.id);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"set_index\": 3,\n    \"reps\": 5,\n    \"weight\": 90,\n    \"unit\": \"kg\",\n    \"is_warmup\": false,\n    \"rpe\": 9.5,\n    \"rest_seconds\": 180,\n    \"calories_est\": null,\n    \"completed_at\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/workouts/{{workout_id}}/exercises/{{we_id}}/sets",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workouts",
+								"{{workout_id}}",
+								"exercises",
+								"{{we_id}}",
+								"sets"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Set",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reps\": 6,\n    \"weight\": 85,\n    \"rpe\": 8.5,\n    \"is_warmup\": false,\n    \"rest_seconds\": 120\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/sets/{{set_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sets",
+								"{{set_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Set",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/sets/{{set_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sets",
+								"{{set_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Complete Workout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/workouts/{{workout_id}}/complete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workouts",
+								"{{workout_id}}",
+								"complete"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Workout Logs",
+			"item": [
+				{
+					"name": "Create Workout Log",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json();",
+									"if (res.id) {",
+									"    pm.collectionVariables.set('log_id', res.id);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"workout_exercise_id\": \"{{we_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/workout-logs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workout-logs"
+							]
+						}
+					}
+				},
+				{
+					"name": "List Workout Logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/workout-logs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workout-logs"
+							],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "2026-01-01",
+									"disabled": true
+								},
+								{
+									"key": "date_to",
+									"value": "2026-12-31",
+									"disabled": true
+								},
+								{
+									"key": "exercise_id",
+									"value": "{{exercise_id}}",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Workout Log",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/workout-logs/{{log_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workout-logs",
+								"{{log_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Workout Log",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/workout-logs/{{log_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workout-logs",
+								"{{log_id}}"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Activity Logs",
+			"item": [
+				{
+					"name": "List Activity Logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/activity-logs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"activity-logs"
+							],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "2026-01-01",
+									"disabled": true
+								},
+								{
+									"key": "date_to",
+									"value": "2026-12-31",
+									"disabled": true
+								},
+								{
+									"key": "event_type",
+									"value": "exercise_logged",
+									"disabled": true
+								},
+								{
+									"key": "exercise_id",
+									"value": "{{exercise_id}}",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Activity Summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/activity-logs/summary?date_from=2026-01-01&date_to=2026-12-31",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"activity-logs",
+								"summary"
+							],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "2026-01-01"
+								},
+								{
+									"key": "date_to",
+									"value": "2026-12-31"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			}
+		}
+	]
+}
